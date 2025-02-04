@@ -16,7 +16,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick }) => {
     fullWidth
     onClick={onClick}
     >
-      Tune !
+      Tune!
     </Button>
   );
 };
