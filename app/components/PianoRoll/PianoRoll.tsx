@@ -28,10 +28,10 @@ const PianoRoll: React.FC = () => {
     setSelectedNotes  
   ] = useState<string[]>([]);
   // キーの情報を管理
-  const[
-    keySignature,
-    setKeySignature
-  ] = useState('C')
+  // const[
+  //   keySignature,
+  //   setKeySignature
+  // ] = useState('C')
   const toggleNote = (note:string)=>{
     if(selectedNotes.includes(note)){
       setSelectedNotes(
@@ -51,13 +51,13 @@ const PianoRoll: React.FC = () => {
       }
     };
   }
-  const handleTune = async()=>{
-    const payload ={
-      notes:selectedNotes,
-      key : keySignature
-    }
+  // const handleTune = async()=>{
+  //   const payload ={
+  //     notes:selectedNotes,
+  //     key : keySignature
+  //   }
 
-  }
+  // }
   return (
     <div className="flex justify-center">
       {/* piano keys */}
