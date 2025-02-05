@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import KeySignatureInput from './components/form/KeySignature';
-import NoteInput from './components/form/NoteInput';
+// import NoteInput from './components/form/NoteInput';
 import SubmitButton from './components/form/SubmitButton';
 import ResultDisplay from './components/ResultDisplay';
 import { determineChord, calculateCentsAdjustment } from './utils/chordUtils';
