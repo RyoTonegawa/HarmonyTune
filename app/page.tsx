@@ -6,6 +6,7 @@ import NoteInput from './components/form/NoteInput';
 import SubmitButton from './components/form/SubmitButton';
 import ResultDisplay from './components/ResultDisplay';
 import { determineChord, calculateCentsAdjustment } from './utils/chordUtils';
+import PianoRoll from './components/PianoRoll/PianoRoll';
 interface NoteAdjustment {
   note: string;
   cents: number;
@@ -42,11 +43,11 @@ export default function Home() {
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1>HarmonyTune</h1>
-
       <KeySignatureInput value={keySignature} onChange={setKeySignature} />
-      <NoteInput label="Note 1" value={notes[0]} onChange={(value) => setNotes([value, notes[1], notes[2]])} />
+      <PianoRoll/> 
+      {/* <NoteInput label="Note 1" value={notes[0]} onChange={(value) => setNotes([value, notes[1], notes[2]])} />
       <NoteInput label="Note 2" value={notes[1]} onChange={(value) => setNotes([notes[0], value, notes[2]])} />
-      <NoteInput label="Note 3" value={notes[2]} onChange={(value) => setNotes([notes[0], notes[1], value])} />
+      <NoteInput label="Note 3" value={notes[2]} onChange={(value) => setNotes([notes[0], notes[1], value])} /> */}
       <SubmitButton onClick={()=>{
         handleSubmit()
         }
