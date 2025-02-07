@@ -2,62 +2,80 @@
 
 import React, { useState } from 'react';
 import KeySignatureInput from './components/form/KeySignature';
-// import NoteInput from './components/form/NoteInput';
 import SubmitButton from './components/form/SubmitButton';
 import ResultDisplay from './components/ResultDisplay';
-import { determineChord, calculateCentsAdjustment } from './utils/chordUtils';
 import PianoRoll from './components/PianoRoll/PianoRoll';
-interface NoteAdjustment {
-  note: string;
-  cents: number;
+interface degreeList{
+  degreeList:string[];
+  quality:string;
+  chordName:string;
 }
-
 interface Result {
-  chordName: string;
-  adjustments: NoteAdjustment[];
+  chordList: degreeList[];
 }
 
 export default function Home() {
   const [keySignature, setKeySignature] = useState<string>('C');
-  const [notes, setNotes] = useState<string[]>(['', '', '']);
-  const [result, setResult] = useState<Result>({
-    chordName: '',
-    adjustments: [],
-  });
-  const handleSubmit = () => {
-    const chordName = determineChord(notes);
-    const chordType: 'major' | 'minor' = chordName.includes('Major') ? 'major' : 'minor';
-
-    const adjustments = notes.map((note, index) => {
-    const role: 'root' | 'third' | 'fifth' =
-        index === 0 ? 'root' : index === 1 ? 'third' : 'fifth';
-      return {
-        note,
-        cents: calculateCentsAdjustment(role, chordType), // 計算した値を取得
-      };
-    });
-
-    setResult({ chordName, adjustments });
-  };
+  const [selectedNoteNumberList, setSelectedNoteNumberList] = useState<number[]>([]);
+  const [loading,setLoading] = useState(false);
+  const [error,setError] = useState("");
+  const [chordResult,setChordResult] = useState<string[]|null>(null);
+  const handleTune = async()=>{
+    if(selectedNoteNumberList.length == 0){
+      alert("Please select at least 3 notes ! ");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    setChordResult(null);
+  
+    const payload ={
+      noteNumberList:selectedNoteNumberList,
+      keySignature : keySignature
+    }
+    try{
+      const res = await fetch(
+        // "https://harmonytunebackend.onrender.com/chord/check",
+        "http://localhost:8080/chord/check",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify(payload)
+        }
+      )
+  
+      if(!res.ok){
+        throw new Error("Umm... sorry, something went wrong.")
+      }
+      const data:Result = await res.json();
+      console.log(res);
+      setChordResult(data.chordList.map((eachChord)=>{
+        return eachChord.chordName
+      }));
+    }catch(error:any){
+      setError(error.message);
+    }finally{
+      setLoading(false);
+    }
+  }
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1>HarmonyTune</h1>
       <KeySignatureInput value={keySignature} onChange={setKeySignature} />
-      <PianoRoll/> 
-      {/* <NoteInput label="Note 1" value={notes[0]} onChange={(value) => setNotes([value, notes[1], notes[2]])} />
-      <NoteInput label="Note 2" value={notes[1]} onChange={(value) => setNotes([notes[0], value, notes[2]])} />
-      <NoteInput label="Note 3" value={notes[2]} onChange={(value) => setNotes([notes[0], notes[1], value])} /> */}
-      <SubmitButton onClick={()=>{
-        handleSubmit()
-        }
-        } />
-      
-      {result.chordName && (
+      <PianoRoll 
+      selectedNoteNumberList={selectedNoteNumberList}
+      selectedNoteNumberOnChange={setSelectedNoteNumberList}
+      /> 
+      <SubmitButton onClick={handleTune} />
+      {loading && <div>Checking...</div>}
+      {error && <div>{error}</div>}
+      {chordResult&& (
         <ResultDisplay
           keySignature={keySignature}
-          chordName={result.chordName}
-          adjustments={result.adjustments}
+          chordName={chordResult}
         />
       )}
     </div>

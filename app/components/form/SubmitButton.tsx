@@ -8,6 +8,7 @@ interface SubmitButtonProps {
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick }) => {
+
   return (
     <Button 
     type="submit" 
@@ -16,7 +17,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick }) => {
     fullWidth
     onClick={onClick}
     >
-      Tune!
+      Check Chord and Tune !
     </Button>
   );
 };

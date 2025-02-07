@@ -1,74 +1,66 @@
 import React, { useState } from 'react';
 import PianoKey from './PianoKey';
-
+interface PianorollProps{
+  // 選択された音のリスト
+  selectedNoteNumberList:number[];
+  // 音を選択した時に新しい音を追加するための関数
+  selectedNoteNumberOnChange:(notes:number[])=>void;
+}
 // 定義したノート情報（音の周波数は今回は使用しない）
 const NOTES = {
-  C: 261.63,
-  'C#': 277.18,
-  D: 293.66,
-  'D#': 311.13,
-  E: 329.63,
-  F: 349.23,
-  'F#': 369.99,
-  G: 392.0,
-  'G#': 415.3,
-  A: 440.0,
-  'A#': 466.16,
-  B: 493.88,
+  C: 0,
+  'C#': 1,
+  D: 2,
+  'D#': 3,
+  E: 4,
+  F: 5,
+  'F#': 6,
+  G: 7,
+  'G#': 8,
+  A: 9,
+  'A#': 10,
+  B: 11,
 } as const;
+
 
 // 白鍵・黒鍵の判定：＃が含まれているかどうかで判定
 // ＃が含まれている場合は黒鍵、含まれていない場合は白鍵
 const isBlackKey = (note: string) => note.includes('#');
 
-const PianoRoll: React.FC = () => {
-  // 選択されたノートを管理
-  const [
-    selectedNotes, 
-    setSelectedNotes  
-  ] = useState<string[]>([]);
-  // キーの情報を管理
-  // const[
-  //   keySignature,
-  //   setKeySignature
-  // ] = useState('C')
-  const toggleNote = (note:string)=>{
-    if(selectedNotes.includes(note)){
-      setSelectedNotes(
-        selectedNotes.filter((selectedNote)=>{
+const PianoRoll: React.FC<PianorollProps> = ({
+  selectedNoteNumberList,
+  selectedNoteNumberOnChange
+ }) => {
+  const toggleNote = (noteNumber:number)=>{
+    if(selectedNoteNumberList.includes(noteNumber)){
+      selectedNoteNumberOnChange(
+        selectedNoteNumberList.filter((selectedNote)=>{
           // 選択されている音を配列から削除。
-          return selectedNote !== note;
+          return selectedNote !== noteNumber;
         })
       )
     }else{
-      if(selectedNotes.length < 3){
-        setSelectedNotes([
-          ...selectedNotes,
-          note
+      if(selectedNoteNumberList.length < 3){
+        selectedNoteNumberOnChange([
+          ...selectedNoteNumberList,
+          noteNumber
         ])
       }else{
         alert('選択できるのは3つまでです。')
       }
     };
   }
-  // const handleTune = async()=>{
-  //   const payload ={
-  //     notes:selectedNotes,
-  //     key : keySignature
-  //   }
 
-  // }
   return (
     <div className="flex justify-center">
       {/* piano keys */}
-      {(Object.keys(NOTES) as Array<keyof typeof NOTES>).map((note) => (
+      {(Object.keys(NOTES) as Array<keyof typeof NOTES>).map((noteNumber) => (
         <PianoKey
-          key={note}
-          note={note}
-          // なぜselectedNotes.includes(note)となっているのか？
-          selected = {selectedNotes.includes(note)}
-          isBlack={isBlackKey(note)}
+          key={noteNumber}
+          selected = {selectedNoteNumberList.includes(NOTES[noteNumber])}
+          isBlack={isBlackKey(noteNumber)}
           onToggle={toggleNote}
+          noteNumber={NOTES[noteNumber]}
         />
       ))}
     </div>
