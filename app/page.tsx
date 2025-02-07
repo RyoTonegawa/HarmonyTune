@@ -35,8 +35,8 @@ export default function Home() {
     }
     try{
       const res = await fetch(
-        // "https://harmonytunebackend.onrender.com/chord/check",
-        "http://localhost:8080/chord/check",
+        "https://harmonytunebackend.onrender.com/chord/check",
+        // "http://localhost:8080/chord/check",
         {
           method:"POST",
           headers:{
