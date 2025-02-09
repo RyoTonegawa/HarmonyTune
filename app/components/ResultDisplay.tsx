@@ -6,27 +6,20 @@ interface Adjustment{
 }
 
 interface ResultDisplayProps{
-  keySignature:string;
+  chordquality:string;
   chordName:string[];
   // adjustments:Adjustment[];
 }
 
 const ResultDisplay:React.FC<ResultDisplayProps>=({
-  keySignature,
+  chordquality,
   chordName
 })=>{
   return(
     <div style={{marginTop:"20px"}}>
       <h2>Chord Check Result</h2>
-      <p>Key Siganture: {keySignature}</p>
+      <p>Key Siganture: {chordquality}</p>
       <p>Chord Name: {chordName}</p>
-      {/* <ul>
-        {adjustments.map((adjustment,index)=>(
-          <li key = {index}>
-            Note {index +1} ({adjustment.note}):{adjustment.cents} cents
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 };

@@ -5,13 +5,28 @@ import KeySignatureInput from './components/form/KeySignature';
 import SubmitButton from './components/form/SubmitButton';
 import ResultDisplay from './components/ResultDisplay';
 import PianoRoll from './components/PianoRoll/PianoRoll';
-interface degreeList{
+interface chordTone{
+  degree:number;
+  noteNumber:number;
+  noteName:string;
+  semiToneInterval:number;
+  degreeName:string;
+  justNotation:number;
+  equalTemperament:number;
+  centsDifference:number;
+}
+
+interface Chord{
+  rootDegreeName:string;
+  rootDegree:number;
+  rootNoteNumber:number;
   degreeList:string[];
   quality:string;
-  chordName:string;
+  chordToneList:chordTone[];
 }
+
 interface Result {
-  chordList: degreeList[];
+  chordList: Chord[];
 }
 
 export default function Home() {
@@ -19,7 +34,7 @@ export default function Home() {
   const [selectedNoteNumberList, setSelectedNoteNumberList] = useState<number[]>([]);
   const [loading,setLoading] = useState(false);
   const [error,setError] = useState("");
-  const [chordResult,setChordResult] = useState<string[]|null>(null);
+  const [chordResult,setChordResult] = useState<Result|null>(null);
   const handleTune = async()=>{
     if(selectedNoteNumberList.length == 0){
       alert("Please select at least 3 notes ! ");
@@ -34,8 +49,10 @@ export default function Home() {
       keySignature : keySignature
     }
     try{
+      // http://localhost:8080/chord/checkにPOSTリクエストを送信
+      const url = "https://harmonytunebackend.onrender.com/chord/check";
       const res = await fetch(
-        `${process.env.HARMONY_TUNE_BACKEND_URL}/chord/check`,
+        url,
         {
           method:"POST",
           headers:{
@@ -44,15 +61,11 @@ export default function Home() {
           body:JSON.stringify(payload)
         }
       )
-  
       if(!res.ok){
         throw new Error("Umm... sorry, something went wrong.")
       }
       const data:Result = await res.json();
-      console.log(res);
-      setChordResult(data.chordList.map((eachChord)=>{
-        return eachChord.chordName
-      }));
+      setChordResult(data);
     }catch(error:any){
       setError(error.message);
     }finally{
@@ -73,8 +86,8 @@ export default function Home() {
       {error && <div>{error}</div>}
       {chordResult&& (
         <ResultDisplay
-          keySignature={keySignature}
-          chordName={chordResult}
+          chordquality={chordResult.chordList[0].quality}
+          chordName={chordResult.chordList[0].chordToneList.map(tone=>tone.noteName)}
         />
       )}
     </div>
