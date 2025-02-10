@@ -13,7 +13,7 @@ const ResultContainer: React.FC<ResultContainerProps> = ({
   return (
     <div className="mt-6 w-full max-w-lg mx-auto p-4 border rounded-lg">
       <h2 className="text-lg text-muted-foreground">Chord Check Result</h2>
-      <Accordion type="multiple" className="mt-4 dark:bg-background">
+      <Accordion type="multiple" className="mt-4 ">
         {chordCheckResult.chordList.map((chord, index) => (
           <ChordAccordion key={index} chord={chord} />
         ))}
