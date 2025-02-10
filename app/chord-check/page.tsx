@@ -75,7 +75,6 @@ export default function ChordCheck() {
   return (
     <Layout>
       <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-        <h1>HarmonyTune</h1>
         <KeySignatureInput value={keySignature} onChange={setKeySignature} />
         <PianoRoll
           selectedNoteNumberList={selectedNoteNumberList}
