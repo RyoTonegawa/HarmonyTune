@@ -25,17 +25,15 @@ const ChordAccordion: React.FC<ChordAccordionProps> = ({ chord }) => {
         cursor-pointer hover:bg-gray-200"
       >
         <span className="text-lg font-bold">{chord.rootDegreeName}</span>
-        <span className="text-sm text-muted-foreground">
-          コード種類 : {chord.quality}
-          構成音 : {chord.degreeList.join("-")}
-        </span>
       </AccordionTrigger>
       <AccordionContent>
         <ul className="mt-2 text-sm text-gray-800">
           {chord.chordToneList.map((tone, index) => (
             <li key={index} className="py-1">
-              <strong>{tone.noteName}</strong> ({tone.degreeName}) 純正律:{" "}
-              {tone.centsDifference.toFixed(1)} cent
+              {tone.degree}度({tone.degreeName}){" : "}
+              {tone.noteName}
+              {"   純正律まで"}
+              <strong>{tone.centsDifference.toFixed(1)}</strong> cent
             </li>
           ))}
         </ul>

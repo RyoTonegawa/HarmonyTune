@@ -82,8 +82,8 @@ export default function ChordCheck() {
         />
         <SubmitButton onClick={handleTune} />
         {loading && (
-          <div className="flex justify-center items-center mt-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900" />
+          <div className="flex justify-center items-center mt-4 dark:bg-background">
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900 dark:border-white" />
           </div>
         )}
         {error && <div>{error}</div>}

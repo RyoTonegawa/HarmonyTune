@@ -1,6 +1,6 @@
 import React from "react";
 const NOTE_NUMBER_LIST = {
-  60: "C",
+  60: "C4",
   61: "C#",
   62: "D",
   63: "D#",
