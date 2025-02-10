@@ -1,4 +1,4 @@
-import { ChordCheckResult } from "@/app/pages/ChordCheck";
+import { ChordCheckResult } from "@/app/chord-check/page";
 import React from "react";
 import ResultContainer from "./ResultContainer";
 

@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import KeySignatureInput from "../components/form/KeySignature";
-import SubmitButton from "../components/form/SubmitButton";
-import ResultDisplay from "../components/checkChordResult/ResultDisplay";
-import PianoRoll from "../components/PianoRoll/PianoRoll";
-import Layout from "../components/layout/Layout";
+import KeySignatureInput from "@/app/components/form/KeySignature";
+import SubmitButton from "@/app/components/form/SubmitButton";
+import ResultDisplay from "@/app/components/checkChordResult/ResultDisplay";
+import PianoRoll from "@/app/components/PianoRoll/PianoRoll";
+import Layout from "@/app/components/layout/Layout";
 export interface ChordTone {
   degree: number;
   noteNumber: number;

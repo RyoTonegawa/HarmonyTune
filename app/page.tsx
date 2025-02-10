@@ -1,5 +1,6 @@
-import ChordCheck from "./pages/ChordCheck";
+"use client";
+import ChordCheck from "./chord-check/page";
 
-export default function Home() {
+export default function ChordCheckPage() {
   return <ChordCheck />;
 }
