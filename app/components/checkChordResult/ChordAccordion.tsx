@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Chord } from "@/app/page";
+import { Chord } from "@/app/pages/ChordCheck";
 import {
   AccordionItem,
   AccordionTrigger,

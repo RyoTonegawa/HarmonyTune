@@ -1,5 +1,5 @@
 import React from "react";
-import { ChordCheckResult } from "@/app/page";
+import { ChordCheckResult } from "@/app/pages/ChordCheck";
 import { Accordion } from "@/components/ui/accordion";
 import ChordAccordion from "./ChordAccordion";
 
