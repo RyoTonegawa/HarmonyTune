@@ -48,8 +48,8 @@ export default function ChordCheck() {
     };
     try {
       // http://localhost:8080/chord/checkにPOSTリクエストを送信
-      // const url = "https://harmonytunebackend.onrender.com/chord/check";
-      const url = "http://localhost:8080/chord/check";
+      const url = "https://harmonytunebackend.onrender.com/chord/check";
+      // const url = "http://localhost:8080/chord/check";
       const res = await fetch(url, {
         method: "POST",
         headers: {
