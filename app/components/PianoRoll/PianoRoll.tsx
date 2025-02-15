@@ -39,10 +39,10 @@ const PianoRoll: React.FC<PianorollProps> = ({
         })
       );
     } else {
-      if (selectedNoteNumberList.length < 3) {
+      if (selectedNoteNumberList.length < 12) {
         selectedNoteNumberOnChange([...selectedNoteNumberList, noteNumber]);
       } else {
-        alert("選択できるのは3つまでです。");
+        alert("選択できるのは12こまでです。");
       }
     }
   };

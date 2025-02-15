@@ -6,22 +6,18 @@ import ResultDisplay from "@/app/components/checkChordResult/ResultDisplay";
 import PianoRoll from "@/app/components/PianoRoll/PianoRoll";
 import Layout from "@/app/components/layout/Layout";
 export interface ChordTone {
-  degree: number;
+  degreeName: string;
   noteNumber: number;
   noteName: string;
-  semiToneInterval: number;
-  degreeName: string;
-  justNotation: number;
-  equalTemperament: number;
   centsDifference: number;
 }
 
 export interface Chord {
+  rootNoteName: string;
   rootDegreeName: string;
-  rootDegree: number;
+  rootDegreeInScale: number;
   rootNoteNumber: number;
-  degreeList: string[];
-  quality: string;
+  degreeInChordList: string[];
   chordToneList: ChordTone[];
 }
 
@@ -52,7 +48,8 @@ export default function ChordCheck() {
     };
     try {
       // http://localhost:8080/chord/checkにPOSTリクエストを送信
-      const url = "https://harmonytunebackend.onrender.com/chord/check";
+      // const url = "https://harmonytunebackend.onrender.com/chord/check";
+      const url = "http://localhost:8080/chord/check";
       const res = await fetch(url, {
         method: "POST",
         headers: {
@@ -60,8 +57,11 @@ export default function ChordCheck() {
         },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) {
+      if (res.status == 500) {
         throw new Error("Umm... sorry, something went wrong.");
+      } else if (res.status == 400) {
+        alert("No Chord Matched!");
+        throw new Error();
       }
       const data: ChordCheckResult = await res.json();
       setChordResult(data);
