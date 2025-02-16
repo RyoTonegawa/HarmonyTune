@@ -32,8 +32,7 @@ const ChordAccordion: React.FC<ChordAccordionProps> = ({ chord }) => {
         <ul className="mt-2 text-sm text-gray-800">
           {chord.chordToneList.map((tone, index) => (
             <li key={index} className="py-1">
-              {tone.degreeName}度({tone.degreeName}){" : "}
-              {tone.noteName}
+              {tone.noteName} ({tone.degreeName}){" : "}
               {"   純正律まで"}
               <strong>{tone.centsDifference}</strong> cent
             </li>
